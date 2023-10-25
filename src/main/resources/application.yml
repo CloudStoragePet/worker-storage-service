@@ -1,0 +1,49 @@
+server:
+  port: 8082
+
+## DB config
+spring:
+  application:
+    name: worker-storage-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/ca-storage?currentSchema=ca-storage
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1085}
+  jpa:
+    hibernate:
+      ddl-auto: none
+  ## RabbitMQ config
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+
+
+## OpenApi config
+#springdoc:
+#  packagesToScan: org.brain.workerstorageservice.controller
+#  pathsToMatch:
+#    - /api/v1/storage/worker/**
+
+
+## folder config
+storage:
+  path: ${STORAGE_BASE_PATH:/home/vitalii/Projects/CloudApp/storage-service/storage}
+
+## RabbitMQ config
+rabbitmq:
+  move-queue-name: ${RABBITMQ_MOVE_QUEUE_NAME:storage-move-queue}
+  exchange-name: ${RABBITMQ_EXCHANGE_NAME:storage-exchange}
+  routing-key: ${RABBITMQ_ROUTING_KEY:storage-move-queue}
+
+
+## Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+
