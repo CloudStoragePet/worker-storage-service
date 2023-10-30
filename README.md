@@ -9,12 +9,13 @@ worker-storage-service is a Spring Boot-based microservice for managing high loa
 - Spring Boot 3.1.3
 - Maven 3.9.1
 - RabbitMQ 3.9.7
-- 
+- Redis
 ## Technologies Used
 
 1. Java 17
 2. Spring Boot
 3. AMQP
+4. Redis
 
 ## Application Features
 
@@ -39,6 +40,9 @@ To run the Storage service with Docker, follow these steps:
        --build-arg DB_HOST=<your_db_host> \
        --build-arg DB_USER=<your_db_user> \
        --build-arg DB_PASSWORD=<your_db_password> \
+       --build-arg SPRING_DATA_REDIS_HOST=<your_redis_host> \
+       --build-arg SPRING_DATA_REDIS_PORT=<your_redis_port> \
+       --build-arg SPRING_DATA_REDIS_PASSWORD=<your_redis_password> \
        --build-arg EUREKA_URL=<your_eureka_url> \
        --build-arg RABBITMQ_HOST=<your_rabbitmq_host> \
        --build-arg STORAGE_BASE_PATH=<your_base_folder_path> \
