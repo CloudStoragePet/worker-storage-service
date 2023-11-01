@@ -1,6 +1,7 @@
 package org.brain.workerstorageservice.model;
 
 import lombok.*;
+import org.brain.workerstorageservice.model.enums.MoveFolderTaskStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
@@ -17,6 +18,6 @@ public class MoveFolderTask {
     private Long sourceFolderId;
     private Long destinationFolderId;
     private Long userId;
-    private String status; // Optional, if you want to track status in Redis or in Worker Service
-
+    private MoveFolderTaskStatus status;
+    private int progress;
 }

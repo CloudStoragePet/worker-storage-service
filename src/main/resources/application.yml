@@ -18,6 +18,11 @@ spring:
     port: 5672
     username: guest
     password: guest
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 10
+        prefetch: 1 # number of messages the listener will prefetch before processing them
   ## redis config
   data:
     redis:
