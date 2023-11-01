@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  * <p>
  * Expected message format (JSON):
  * {
- *   "taskId": "uuid",
- *   "sourceFolder": "/path/to/source",
- *   "destinationFolder": "/path/to/destination",
- *   "userId": 1
+ * "taskId": "uuid",
+ * "sourceFolder": "/path/to/source",
+ * "destinationFolder": "/path/to/destination",
+ * "userId": 1
  * }
  * <p>
  * Operations:
@@ -28,10 +28,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StorageListener {
     private final FolderService folderService;
+
     @RabbitListener(queues = "${rabbitmq.move-queue-name}")
-    public void consumeMoveFolder (MoveFolderTask moveFolderTask) {
+    public void consumeMoveFolder(MoveFolderTask moveFolderTask) {
         log.info("Message received: {}", moveFolderTask);
         folderService.moveFolder(moveFolderTask);
+        log.info("Message processed: {}", moveFolderTask);
     }
-
 }
