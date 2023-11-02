@@ -20,6 +20,7 @@ import java.util.Optional;
 public class FolderServiceImpl implements FolderService {
     private final FolderTaskRepository folderTaskRepository;
     private static final int SLEEP_TIMEOUT = 5 * 1000; // 5 seconds
+    private static final int STEP_UPDATE = 10;
 
 
     @Override
@@ -69,13 +70,16 @@ public class FolderServiceImpl implements FolderService {
         Long complexity = moveFolderTask.getSourceFolderId(); // Adjust this value based on the desired task complexity
         int primeCount = 0;
         int num = 2;
-
+        int nextProgressUpdate = STEP_UPDATE;
         while (primeCount < complexity) {
             if (IntegerFunctions.isPrime(num)) {
                 primeCount++;
                 int progress = (int) (((double) primeCount / complexity) * 100);
-                // update progress and check status
-                updateProgressAndCheckStatus(moveFolderTask.getId(), progress);
+                if (progress >= nextProgressUpdate) {
+                    // update progress and check status at every stepUpdate
+                    updateProgressAndCheckStatus(moveFolderTask.getId(), progress);
+                    nextProgressUpdate += STEP_UPDATE;
+                }
             }
             num++;
         }
