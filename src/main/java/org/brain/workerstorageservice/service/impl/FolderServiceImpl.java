@@ -35,7 +35,6 @@ public class FolderServiceImpl implements FolderService {
             moveFolderTask.setStatus(MoveFolderTaskStatus.COMPLETED);
         } catch (TaskCanceledException e) {
             log.info("moveFolder task canceled: {}", moveFolderTask);
-            moveFolderTask.setStatus(MoveFolderTaskStatus.CANCELED);
         } catch (TaskFailedException e) {
             log.error("moveFolder task failed: {}", moveFolderTask, e);
             moveFolderTask.setStatus(MoveFolderTaskStatus.FAILED);
@@ -77,6 +76,7 @@ public class FolderServiceImpl implements FolderService {
                 int progress = (int) (((double) primeCount / complexity) * 100);
                 if (progress >= nextProgressUpdate) {
                     // update progress and check status at every stepUpdate
+                    moveFolderTask.setProgress(progress);
                     updateProgressAndCheckStatus(moveFolderTask.getId(), progress);
                     nextProgressUpdate += STEP_UPDATE;
                 }
