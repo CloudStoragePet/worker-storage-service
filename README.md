@@ -10,12 +10,16 @@ worker-storage-service is a Spring Boot-based microservice for managing high loa
 - Maven 3.9.1
 - RabbitMQ 3.9.7
 - Redis
+- OLTP
+
+
 ## Technologies Used
 
 1. Java 17
 2. Spring Boot
 3. AMQP
 4. Redis
+5. OLTP
 
 ## Application Features
 
@@ -50,7 +54,8 @@ To run the Storage service with Docker, follow these steps:
        --build-arg RABBITMQ_MOVE_QUEUE_NAME=<your_rabbitmq_move_queue_name> \
        --build-arg RABBITMQ_EXCHANGE_NAME=<your_rabbitmq_exchange_name> \
        --build-arg RABBITMQ_ROUTING_KEY=<your_rabbitmq_routing_key> \
-       --build-arg MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=<your_zipkin_endpoint> \
+       --build-arg MANAGEMENT_OTLP_TRACING_ENDPOINT=<your_oltp_tracing_endpoint> \
+       --build-arg MANAGEMENT_OTLP_METRICS_EXPORT_URL=<your_oltp_metrics_endpoint> \
        -t worker-storage-service .
     ```
 http://localhost:8081/swagger-ui/index.html
