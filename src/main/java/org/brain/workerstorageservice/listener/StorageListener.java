@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.brain.workerstorageservice.model.MoveFolderTask;
 import org.brain.workerstorageservice.service.FolderService;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,8 +28,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StorageListener {
     private final FolderService folderService;
-
-    @RabbitListener(queues = "${rabbitmq.move-queue-name}")
+    @KafkaListener(topics = "${spring.kafka.topicName}", groupId = "${spring.kafka.groupId}")
     public void consumeMoveFolder(MoveFolderTask moveFolderTask) {
         log.info("Message received: {}", moveFolderTask);
         folderService.moveFolder(moveFolderTask);

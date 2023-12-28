@@ -3,6 +3,7 @@ package org.brain.workerstorageservice.exceptions;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.brain.workerstorageservice.exceptions.model.ErrorType;
+
 import java.io.Serial;
 
 
